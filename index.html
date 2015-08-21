@@ -9,6 +9,7 @@
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
       <div id="dateSelect" style="float: right; margin-bottom: 15px"></div>
+      
       <div class="event-selects">
         <div id="event1" style="margin-bottom: 15px"></div>
         <div id="event2" style="margin-bottom: 15px; display: none"></div>
@@ -17,9 +18,7 @@
       </div>
 
       <div style="clear: both;"></div>
-      <div id="graph"></div>
     </div>
-    <div id="table"></div>
     <script>
       // populate each dropdown with the project's events and add a date picker
       var event1 = $('#event1').MPEventSelect(),
@@ -29,11 +28,6 @@
           dateSelect  = $('#dateSelect').MPDatepicker();
           
       var runQuery = function() {
-        var eventName = eventSelect.MPEventSelect('value'),
-            dateRange = dateSelect.MPDatepicker('value'),
-            fromDate = dateRange.from,
-            toDate = dateRange.to;
-                
         var data = {},
             eventNameCount = 0,
             eventNames = [event1, event2, event3, event4];
@@ -51,6 +45,8 @@
           // obtain event name and date range values from dropdowns
           var eventName = event.MPEventSelect('value'),
               dateRange = dateSelect.MPDatepicker('value'),
+              fromDate = dateRange.from,
+              toDate = dateRange.to;
               
           // set parameters and append segmentation results to data
           if (eventName) {
