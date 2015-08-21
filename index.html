@@ -111,6 +111,7 @@
       // set functions to run when dropdowns change
       event1.on('change', function(e, eventName) {
         runQuery();
+        $("#step2").show();
         step2.show();
       });
       event2.on('change', function(e, eventName) {
