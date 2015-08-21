@@ -89,12 +89,7 @@
           dateSelect  = $('#dateSelect').MPDatepicker();
           
       var runQuery = function() {
-        $template = $('.event-selects-template').clone();
-        $('#mixpanel-platform-section').append($template);
-        
         $('#run').submit(function(e) {
-          
-          
           var events = [],
               eventNames = [event1, event2, event3, event4, event5],
               dateRange = dateSelect.MPDatepicker('value'),
@@ -113,7 +108,7 @@
             from: fromDate,
             to: toDate,
             script: 'ourScript',
-            params: '{"steps":' + events + '}' 
+            params: '{"steps":[' + events + ']}' 
           }
           
           console.log(parameters);
