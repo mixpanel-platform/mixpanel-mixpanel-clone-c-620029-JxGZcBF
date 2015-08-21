@@ -78,7 +78,9 @@
           dateSelect  = $('#dateSelect').MPDatepicker();
           
       var runQuery = function() {
-        $template = $('.event-selects-template').clone() 
+        $template = $('.event-selects-template').clone();
+        $('#mixpanel-platform-section').append($template);
+        
         $('#run').submit(function(e) {
           
           
