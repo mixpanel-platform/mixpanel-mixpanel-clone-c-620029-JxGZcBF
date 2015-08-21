@@ -8,43 +8,80 @@
   </head>
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
-      <div id="eventSelect" style="float: left;"></div>
-      <div id="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
-      <div id="propSelect" style="float: left;"></div>
-      <div id="dateSelect" style="float: right;"></div>
+      <div id="dateSelect" style="float: right; margin-bottom: 15px"></div>
+      <div class="event-selects">
+        <div id="event1" style="margin-bottom: 15px"></div>
+        <div id="event2" style="margin-bottom: 15px; display: none"></div>
+        <div id="event3" style="margin-bottom: 15px; display: none"></div>
+        <div id="event4" style="display: none"></div>
+      </div>
+
       <div style="clear: both;"></div>
       <div id="graph"></div>
     </div>
     <div id="table"></div>
     <script>
-      var eventSelect = $('#eventSelect').MPEventSelect();
-      var propSelect  = $('#propSelect').MPPropertySelect();
-      var dateSelect  = $('#dateSelect').MPDatepicker();
-      var eventGraph  = $('#graph').MPChart({chartType: 'line'});
-      var eventTable  = $('#table').MPTable({
-        showPercentages: true,
-        firstColHeader: 'Event'
-      });
-
+      // populate each dropdown with the project's events and add a date picker
+      var event1 = $('#event1').MPEventSelect(),
+          event2 = $('#event2').MPEventSelect(),
+          event3 = $('#event3').MPEventSelect(),
+          event4 = $('#event4').MPEventSelect(),
+          dateSelect  = $('#dateSelect').MPDatepicker(),
+          
       var runQuery = function() {
         var eventName = eventSelect.MPEventSelect('value'),
-            propName  = propSelect.MPPropertySelect('value'),
             dateRange = dateSelect.MPDatepicker('value');
-
-        if (eventName) {
-          MP.api.segment(eventName, propName, dateRange).done(function(results) {
-            eventGraph.MPChart('setData', results);
-            eventTable.MPTable('setData', results);
-          });
-        }
+            
+        var data = {},
+            eventNameCount = 0,
+            eventNames = [event1, event2, event3, event4];
+              
+        // count how many events have been selected
+        $.each(eventNames, function(i, event) {
+          eventThere = event.MPEventSelect('value');
+          if (eventThere) {
+            eventNameCount ++;
+          }
+        });
+          
+        // iterate through each event that has been selected and create segmentation graph and table
+        $.each(eventNames, function(i, event) {
+          // obtain event name and date range values from dropdowns
+          var eventName = event.MPEventSelect('value'),
+              dateRange = dateSelect.MPDatepicker('value'),
+              fromDate = dateRange.from,
+              toDate = dateRange.to;
+                
+          // set parameters and append segmentation results to data
+          if (eventName) {
+            params = {
+              from: fromDate,
+              to: toDate,
+            }
+          };
+        });
       };
-      eventSelect.on('change', function(e, eventName) {
-        propSelect.MPPropertySelect('setEvent', eventName);
-        $("#by").show();
+      
+      // set functions to run when dropdowns change
+      event1.on('change', function(e, eventName) {
+        runQuery();
+        event2.show();
+      });
+      event2.on('change', function(e, eventName) {
+        runQuery();
+        event3.show();
+      });
+      event3.on('change', function(e, eventName) {
+        runQuery();
+        event4.show().css("margin-bottom", "15px");
+      });
+      event4.on('change', function(e, eventName) {
         runQuery();
       });
-      propSelect.on('change', runQuery);
-      dateSelect.on('change', runQuery);
+      
+      dateSelect.on('change', function() {
+        runQuery();
+      });
     </script>
   </body>
 </html>
