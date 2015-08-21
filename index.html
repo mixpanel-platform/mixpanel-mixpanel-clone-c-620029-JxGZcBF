@@ -97,13 +97,11 @@
                 fromDate = dateRange.from,
                 toDate = dateRange.to;
                 
-            if (eventName) {
-              params = {
-                from: fromDate,
-                to: toDate,
-              }
-              console.log(eventName + ': DONE!');
-            };
+            params = {
+              from: fromDate,
+              to: toDate,
+            }
+            console.log(eventName + ': DONE!');
           });
         });
       };
