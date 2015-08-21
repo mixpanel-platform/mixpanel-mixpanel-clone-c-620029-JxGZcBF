@@ -99,7 +99,6 @@ document.getElementById('var_div').setAttribute('id',val)
               eventNameCount = 0,
               eventNames = [event1, event2, event3, event4];
               
-          console.log(event1);
           
           console.log(eventNames);
           
@@ -107,6 +106,8 @@ document.getElementById('var_div').setAttribute('id',val)
                 dateRange = dateSelect.MPDatepicker('value'),
                 fromDate = dateRange.from,
                 toDate = dateRange.to;
+                
+                 console.log(eventName);
                 
             parameters = {
               from: fromDate,
