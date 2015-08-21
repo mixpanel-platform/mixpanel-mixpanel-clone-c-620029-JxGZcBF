@@ -77,8 +77,11 @@
           
       var runQuery = function() {
         $('#run').submit(function(e) {
+          
           var events = [],
-              eventNames = [event1, event2, event3, event4];
+              eventNames = [event1, event2, event3, event4],
+              fromDate = dateRange.from,
+              toDate = dateRange.to;
               
           // build out list of events
           $.each(eventNames, function(i, event) {
