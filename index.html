@@ -30,8 +30,10 @@
           
       var runQuery = function() {
         var eventName = eventSelect.MPEventSelect('value'),
-            dateRange = dateSelect.MPDatepicker('value');
-            
+            dateRange = dateSelect.MPDatepicker('value'),
+            fromDate = dateRange.from,
+            toDate = dateRange.to;
+                
         var data = {},
             eventNameCount = 0,
             eventNames = [event1, event2, event3, event4];
@@ -49,9 +51,7 @@
           // obtain event name and date range values from dropdowns
           var eventName = event.MPEventSelect('value'),
               dateRange = dateSelect.MPDatepicker('value'),
-              fromDate = dateRange.from,
-              toDate = dateRange.to;
-                
+              
           // set parameters and append segmentation results to data
           if (eventName) {
             params = {
